@@ -1,0 +1,5 @@
+<div class="container">
+  <span *ngFor="let widget of activeWidgets; let i = index">
+      <div class="starter-template" process-widget [widgetData]="widget"></div>
+  </span>
+</div>
