@@ -1,5 +1,6 @@
+<app-header-bar (onNavigate)="onNavigate($event)"></app-header-bar>
 <div class="container">
   <span *ngFor="let widget of activeWidgets; let i = index">
-      <div class="starter-template" process-widget [widgetData]="widget"></div>
+      <div class="starter-template" appProcessWidget [widgetData]="widget" (onNavigate)="onNavigate($event)"></div>
   </span>
 </div>

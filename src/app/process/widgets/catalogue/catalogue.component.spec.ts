@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CatalogueComponent } from './catalogue.component';
 
 describe('CatalogueComponent', () => {
@@ -19,7 +18,7 @@ describe('CatalogueComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create shopping component instance', () => {
     expect(component).toBeTruthy();
   });
 });

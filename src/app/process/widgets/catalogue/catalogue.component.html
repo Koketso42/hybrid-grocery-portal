@@ -1,3 +1,19 @@
-<p>
-  catalogue works!
-</p>
+<div class="container" *ngIf="catalogue">
+  <div *ngFor="let category of catalogue.categories">
+    <h1>{{ category.categoryName }}</h1>
+    <hr />
+    <div class="row bounce-in">
+      <div class="col" *ngFor="let product of category.products">
+        <div class="card text-center">
+            <div class="card-body">
+              <div class="card-block">
+                <h4 class="card-title">{{ product.productName }}</h4>
+                <p class="card-text">{{ product.shortDescription }}</p>
+                <a href="#" class="btn btn-primary">Buy (R {{ product.price }})</a>
+              </div>
+            </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>

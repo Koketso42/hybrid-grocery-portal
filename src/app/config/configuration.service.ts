@@ -11,7 +11,7 @@ export class ConfigurationService {
   private urls: Map<string, string> = new Map();
 
   constructor() {
-    this.urls.set('ProductCatalogue', `${environment.baseUrl}/api/catalogue`);
+    this.urls.set('ProductCatalogue', `${environment.baseUrl}/api/catalogue/`);
   }
 
   baseUrl(key: string) {

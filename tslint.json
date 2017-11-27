@@ -19,10 +19,6 @@
       "rxjs/Rx"
     ],
     "import-spacing": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
@@ -128,12 +124,10 @@
       "kebab-case"
     ],
     "angular-whitespace": [true, "check-interpolation"],
-    "no-output-on-prefix": true,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
     "no-input-rename": true,
-    "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,

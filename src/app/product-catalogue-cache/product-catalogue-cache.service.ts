@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigurationService } from '../config/configuration.service';
 import { Catalogue } from './models/Catalogue';
+import 'rxjs/add/operator/map';
 
 declare function require(name: string);
 
@@ -14,18 +15,23 @@ export class ProductCatalogueCacheService {
 
     constructor(private configSvc: ConfigurationService, private http: Http) {
       this.serviceUrl = configSvc.baseUrl('ProductCatalogue');
+      this.catalogue = new Catalogue();
     }
 
     getCatalogue(): Observable<any> {
-      if (this.catalogue) {
+      if (this.catalogue.categories) {
         return Observable.of(this.catalogue);
       }
 
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
       return this.http
-        .get(this.serviceUrl)
+        .get(this.serviceUrl, { headers: headers })
         .map(response => {
-            this.catalogue = response.json() as Catalogue;
-            return this.catalogue;
+            this.catalogue.categories = response.json();
+            console.log('cat: ', this.catalogue);
+            return this.catalogue as Catalogue;
         })
         .catch(err => {
             console.log('Error retrieving product catalogue: ' + err);

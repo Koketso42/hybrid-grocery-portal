@@ -1,3 +1,4 @@
+import { ConfigurationService } from './config/configuration.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -5,6 +6,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProcessModule } from './process/process.module';
 import { BrandModule } from './brand/brand.module';
+import { ProductCatalogueCacheService } from './product-catalogue-cache/product-catalogue-cache.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -15,9 +18,10 @@ import { BrandModule } from './brand/brand.module';
     AppRoutingModule,
     ProcessModule,
     BrandModule,
+    HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [ConfigurationService, ProductCatalogueCacheService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
