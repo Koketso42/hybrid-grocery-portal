@@ -16,7 +16,7 @@ export class ProductCatalogueCacheService {
       this.serviceUrl = configSvc.baseUrl('ProductCatalogue');
     }
 
-    getCatalogue(): Observable<Catalogue> {
+    getCatalogue(): Observable<any> {
       if (this.catalogue) {
         return Observable.of(this.catalogue);
       }

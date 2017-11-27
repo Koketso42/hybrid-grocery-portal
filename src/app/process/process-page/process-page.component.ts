@@ -4,6 +4,10 @@ import { CatalogueComponent } from '../widgets/catalogue/catalogue.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { LoginComponent } from './../widgets/login/login.component';
+import { RegisterComponent } from './../widgets/register/register.component';
+import { ProfileComponent } from './../widgets/profile/profile.component';
+import { TransactionsComponent } from '../widgets/transactions/transactions.component';
 
 @Component({
   selector: 'app-process-page',
@@ -13,7 +17,11 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class ProcessPageComponent implements OnInit {
 
   widgetMap: WidgetData[] = [
-    new WidgetData(CatalogueComponent, { }, 'Shopping catalogue', 'shop')
+    new WidgetData(CatalogueComponent, { }, 'Shopping catalogue', 'shop'),
+    new WidgetData(LoginComponent, { }, 'User login', 'login'),
+    new WidgetData(RegisterComponent, { }, 'User registration', 'register'),
+    new WidgetData(ProfileComponent, { }, 'My profile', 'profile'),
+    new WidgetData(TransactionsComponent, { }, 'My transaction', 'transaction')
   ];
 
   private activeWidgets: WidgetData[] = [];
