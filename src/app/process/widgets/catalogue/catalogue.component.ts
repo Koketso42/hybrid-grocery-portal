@@ -5,6 +5,7 @@ import { Order } from '../../../product-catalogue-cache/models/Order';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { WidgetComponent } from '../widget.component';
 import { ProductCatalogueCacheService } from '../../../product-catalogue-cache/product-catalogue-cache.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-catalogue',
@@ -17,7 +18,7 @@ export class CatalogueComponent implements OnInit, WidgetComponent {
 	@Input() onNavigate: EventEmitter<any>;
 	catalogue: Catalogue;
 
-	constructor(private productCatalogueSvc: ProductCatalogueCacheService) {}
+	constructor(private productCatalogueSvc: ProductCatalogueCacheService, private router: Router) {}
 
 	ngOnInit() {
 		this.productCatalogueSvc.getCatalogue().subscribe((catalogue) => {
@@ -31,6 +32,13 @@ export class CatalogueComponent implements OnInit, WidgetComponent {
 		order.products.push(product);
 		order.deliveryStatus = false;
 		order.totalPrice = this.applyDiscount(this.determineTotalPrice(order.products));
+
+		this.productCatalogueSvc.placeOrder(order)
+			.subscribe(results => {
+				console.log(results);
+				// navigate to checkout page
+				this.onNavigateToPage('checkout');
+			});
 	}
 
 	determineTotalPrice(products: Product[]): number {
@@ -45,20 +53,21 @@ export class CatalogueComponent implements OnInit, WidgetComponent {
 
 	applyDiscount(amount: number): number {
 
-		let discounts: Discount[] = [];
-
-		this.productCatalogueSvc.discounts().subscribe(disounts => {
-			discounts = discounts;
+		 this.productCatalogueSvc.discounts().subscribe((disountsList) => {
+			if (amount >= 50 || amount <= 100) {
+				return amount * disountsList[0].discountPercentage;
+			} else if (amount >= 112 || amount <= 115) {
+				return amount * disountsList[1].discountPercentage;
+			} else if (amount > 120) {
+				return amount * disountsList[2].discountPercentage;
+			}
 		});
 
-		if (amount >= 50 || amount <= 100) {
-			return amount * discounts[0].discountPercentage;
-		} else if (amount >= 112 || amount <= 115) {
-			return amount * discounts[1].discountPercentage;
-		} else if (amount > 120) {
-			return amount * discounts[2].discountPercentage;
-		}
-
 		return amount;
+	}
+
+	public onNavigateToPage(page) {
+		this.router.navigate([`page/${page}`]);
+		this.onNavigate.emit({ page: `page/${page}` });
 	}
 }

@@ -8,6 +8,7 @@ import { LoginComponent } from './../widgets/login/login.component';
 import { RegisterComponent } from './../widgets/register/register.component';
 import { ProfileComponent } from './../widgets/profile/profile.component';
 import { TransactionsComponent } from '../widgets/transactions/transactions.component';
+import { CheckoutPageComponent } from '../widgets/checkout-page/checkout-page.component';
 
 @Component({
 	selector: 'app-process-page',
@@ -23,7 +24,8 @@ export class ProcessPageComponent implements OnInit {
 		new WidgetData(LoginComponent, {}, 'User login', 'login'),
 		new WidgetData(RegisterComponent, {}, 'User registration', 'register'),
 		new WidgetData(ProfileComponent, {}, 'My profile', 'profile'),
-		new WidgetData(TransactionsComponent, {}, 'My transaction', 'transaction')
+		new WidgetData(TransactionsComponent, {}, 'My transaction', 'transaction'),
+		new WidgetData(CheckoutPageComponent, {}, 'Checkout page', 'checkout')
 	];
 
 	activeWidgets: WidgetData[] = [];
@@ -67,7 +69,7 @@ export class ProcessPageComponent implements OnInit {
 
 	onNavigate(event) {
 		setTimeout(() => {
-		this.setupActiveWidget();
+			this.setupActiveWidget();
 		}, 200);
 	}
 }
