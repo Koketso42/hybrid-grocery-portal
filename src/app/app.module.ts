@@ -1,3 +1,4 @@
+import { AuthenticationService } from './authentication/authentication.service';
 import { ConfigurationService } from './config/configuration.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,7 @@ import { HttpModule } from '@angular/http';
     HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [ConfigurationService, ProductCatalogueCacheService],
+  providers: [ConfigurationService, ProductCatalogueCacheService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

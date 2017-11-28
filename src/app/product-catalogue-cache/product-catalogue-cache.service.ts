@@ -7,7 +7,7 @@ import { Discount } from './models/Discount';
 import 'rxjs/add/operator/map';
 import { Order } from './models/Order';
 
-declare function require(name: string)
+declare function require(name: string);
 
 @Injectable()
 export class ProductCatalogueCacheService {
