@@ -12,6 +12,11 @@ export class ConfigurationService {
 
   constructor() {
     this.urls.set('ProductCatalogue', `${environment.baseUrl}/api/catalogue/`);
+    this.urls.set('Discounts', `${environment.baseUrl}/api/discounts/`);
+    this.urls.set('Login', `${environment.baseUrl}/api/login/`);
+    this.urls.set('Register', `${environment.baseUrl}/api/register/`);
+    this.urls.set('Order', `${environment.baseUrl}/api/order/`);
+    this.urls.set('Purchase', `${environment.baseUrl}/api/purchase/`);
   }
 
   baseUrl(key: string) {
