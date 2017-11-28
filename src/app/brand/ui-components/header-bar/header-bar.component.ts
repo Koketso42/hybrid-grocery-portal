@@ -15,7 +15,7 @@ export class HeaderBarComponent implements OnInit {
 	ngOnInit() {}
 
 	onNavigateToPage(page) {
-    this.router.navigate([`page/${page}`]);
-    this.onNavigate.emit({ page: `page/${page}` });
+		this.router.navigate([`page/${page}`]);
+		this.onNavigate.emit({ page: `page/${page}` });
 	}
 }

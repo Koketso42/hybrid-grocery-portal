@@ -1,3 +1,145 @@
-<p>
-  register works!
-</p>
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel title="Create an account with Hybrid's Grocery Store">
+        <ng-template ngbPanelContent >
+            <form class="p-3" [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)" novalidates>
+              
+              <h3>Personal Information</h3>
+              <hr>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['idNumber'].valid && registerForm.controls['idNumber'].touched}">
+                <label for="idNumber" class="col-2 col-form-label">ID number</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['idNumber']" [ngClass]="{'form-control-danger':!registerForm.controls['idNumber'].valid && registerForm.controls['idNumber'].touched}" type="text" value="" id="idNumber" [(ngModel)]="user.person.idNumber">
+                  <div *ngIf="registerForm.controls['idNumber'].hasError('required') && registerForm.controls['idNumber'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['lastName'].valid && registerForm.controls['lastName'].touched}">
+                <label for="lastName" class="col-2 col-form-label">Lastname</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['lastName']" [ngClass]="{'form-control-danger':!registerForm.controls['lastName'].valid && registerForm.controls['lastName'].touched}" type="text" value="" id="lastName" [(ngModel)]="user.person.lastName">
+                  <div *ngIf="registerForm.controls['lastName'].hasError('required') && registerForm.controls['lastName'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['firstName'].valid && registerForm.controls['firstName'].touched}">
+                <label for="firstName" class="col-2 col-form-label">Firstname</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['firstName']" [ngClass]="{'form-control-danger':!registerForm.controls['firstName'].valid && registerForm.controls['firstName'].touched}" type="text" value="" id="firstName" [(ngModel)]="user.person.firstName">
+                  <div *ngIf="registerForm.controls['firstName'].hasError('required') && registerForm.controls['firstName'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['email'].valid && registerForm.controls['email'].touched}">
+                <label for="email" class="col-2 col-form-label">Email address</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['email']" [ngClass]="{'form-control-danger':!registerForm.controls['email'].valid && registerForm.controls['email'].touched}" type="text" value="" id="email" [(ngModel)]="user.person.email">
+                  <div *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['phone'].valid && registerForm.controls['phone'].touched}">
+                <label for="phone" class="col-2 col-form-label">Phone number</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['phone']" [ngClass]="{'form-control-danger':!registerForm.controls['phone'].valid && registerForm.controls['phone'].touched}" type="text" value="" id="phone" [(ngModel)]="user.person.phone">
+                  <div *ngIf="registerForm.controls['phone'].hasError('required') && registerForm.controls['phone'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+
+              <h3>Address Details</h3>
+              <hr>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['complexName'].valid && registerForm.controls['complexName'].touched}">
+                <label for="complexName" class="col-2 col-form-label">Complex name</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['complexName']" [ngClass]="{'form-control-danger':!registerForm.controls['complexName'].valid && registerForm.controls['complexName'].touched}" type="text" value="" id="complexName" [(ngModel)]="user.person.address.complexName">
+                  <div *ngIf="registerForm.controls['complexName'].hasError('required') && registerForm.controls['complexName'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['streetName'].valid && registerForm.controls['streetName'].touched}">
+                <label for="streetName" class="col-2 col-form-label">Street name</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['streetName']" [ngClass]="{'form-control-danger':!registerForm.controls['streetName'].valid && registerForm.controls['streetName'].touched}" type="text" value="" id="streetName" [(ngModel)]="user.person.address.streetName">
+                  <div *ngIf="registerForm.controls['streetName'].hasError('required') && registerForm.controls['streetName'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['suburb'].valid && registerForm.controls['suburb'].touched}">
+                <label for="suburb" class="col-2 col-form-label">Surbub</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['suburb']" [ngClass]="{'form-control-danger':!registerForm.controls['suburb'].valid && registerForm.controls['suburb'].touched}" type="text" value="" id="suburb" [(ngModel)]="user.person.address.suburb">
+                  <div *ngIf="registerForm.controls['suburb'].hasError('required') && registerForm.controls['suburb'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['city'].valid && registerForm.controls['city'].touched}">
+                <label for="city" class="col-2 col-form-label">City</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['city']" [ngClass]="{'form-control-danger':!registerForm.controls['city'].valid && registerForm.controls['city'].touched}" type="text" value="" id="city" [(ngModel)]="user.person.address.city">
+                  <div *ngIf="registerForm.controls['city'].hasError('required') && registerForm.controls['city'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['state'].valid && registerForm.controls['state'].touched}">
+                <label for="state" class="col-2 col-form-label">State</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['state']" [ngClass]="{'form-control-danger':!registerForm.controls['state'].valid && registerForm.controls['state'].touched}" type="text" value="" id="state" [(ngModel)]="user.person.address.state">
+                  <div *ngIf="registerForm.controls['state'].hasError('required') && registerForm.controls['state'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['country'].valid && registerForm.controls['country'].touched}">
+                <label for="country" class="col-2 col-form-label">Country</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['country']" [ngClass]="{'form-control-danger':!registerForm.controls['country'].valid && registerForm.controls['country'].touched}" type="text" value="" id="country" [(ngModel)]="user.person.address.country">
+                  <div *ngIf="registerForm.controls['country'].hasError('required') && registerForm.controls['country'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['postalCode'].valid && registerForm.controls['postalCode'].touched}">
+                <label for="postalCode" class="col-2 col-form-label">Postal code</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['postalCode']" [ngClass]="{'form-control-danger':!registerForm.controls['state'].valid && registerForm.controls['postalCode'].touched}" type="text" value="" id="postalCode" [(ngModel)]="user.person.address.postalCode">
+                  <div *ngIf="registerForm.controls['postalCode'].hasError('required') && registerForm.controls['postalCode'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+
+              <h3>Banking Details</h3>
+              <hr>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['accountNumber'].valid && registerForm.controls['accountNumber'].touched}">
+                <label for="accountNumber" class="col-2 col-form-label">Account number</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['accountNumber']" [ngClass]="{'form-control-danger':!registerForm.controls['accountNumber'].valid && registerForm.controls['accountNumber'].touched}" type="text" value="" id="accountNumber" [(ngModel)]="user.person.bankAccount.accountNumber">
+                  <div *ngIf="registerForm.controls['accountNumber'].hasError('required') && registerForm.controls['accountNumber'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['bankName'].valid && registerForm.controls['bankName'].touched}">
+                <label for="bankName" class="col-2 col-form-label">Bank name</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['bankName']" [ngClass]="{'form-control-danger':!registerForm.controls['bankName'].valid && registerForm.controls['bankName'].touched}" type="text" value="" id="bankName" [(ngModel)]="user.person.bankAccount.bankName">
+                  <div *ngIf="registerForm.controls['bankName'].hasError('required') && registerForm.controls['bankName'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['branchCode'].valid && registerForm.controls['branchCode'].touched}">
+                <label for="branchCode" class="col-2 col-form-label">Branch code</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['branchCode']" [ngClass]="{'form-control-danger':!registerForm.controls['branchCode'].valid && registerForm.controls['branchCode'].touched}" type="text" value="" id="branchCode" [(ngModel)]="user.person.bankAccount.branchCode">
+                  <div *ngIf="registerForm.controls['branchCode'].hasError('required') && registerForm.controls['branchCode'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+
+              <h3>Credentials</h3>
+              <hr>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['username'].valid && registerForm.controls['username'].touched}">
+                <label for="username" class="col-2 col-form-label">Username</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['username']" [ngClass]="{'form-control-danger':!registerForm.controls['username'].valid && registerForm.controls['username'].touched}" type="text" value="" id="username" [(ngModel)]="user.username">
+                  <div *ngIf="registerForm.controls['username'].hasError('required') && registerForm.controls['username'].touched" class="form-control-feedback">* Please complete this field</div>
+                </div>
+              </div>
+              <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}">
+                <label for="password" class="col-2 col-form-label">Password</label>
+                <div class="col-10">
+                  <input class="form-control" [formControl]="registerForm.controls['password']" [ngClass]="{'form-control-danger':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}" type="text" value="" id="password" [(ngModel)]="user.password">
+                  <div *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched" class="form-control-feedback">* Please complete this field</div>
+                  <div *ngIf="registerForm.controls['password'].hasError('pattern') && registerForm.controls['password'].touched" class="form-control-feedback">* Your password must at least have 8 characters, numbers (1, 2, 3, etc), special character (@, #, %, etc), sppercase letter (A, B, C, etc)</div>
+                </div>
+              </div>
+
+              <hr>
+              <div class="form-group">
+                  <button class="btn btn-primary" (click)="register(registerForm.value)">Register</button>
+              </div>
+        </form>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

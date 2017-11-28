@@ -13,13 +13,15 @@ export class AuthenticationService {
 		const headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
+		const userObj = JSON.stringify(user);
+
 		return this.http
-			.post(this.configSvc.baseUrl('login'), user, { headers: headers })
+			.post(this.configSvc.baseUrl('Login'), JSON.stringify(user), { headers: headers })
 			.map((response) => {
-				return response.json() as User;
+				return response.json();
 			})
 			.catch((err) => {
-                Observable.throw(err.json().data);
+                console.log(err);
                 return Observable.of(null);
 			});
     }

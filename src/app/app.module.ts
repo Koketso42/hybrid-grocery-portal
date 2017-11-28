@@ -15,12 +15,12 @@ import { HttpModule } from '@angular/http';
     AppComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     ProcessModule,
     BrandModule,
-    HttpModule,
-    NgbModule.forRoot()
+    HttpModule
   ],
   providers: [ConfigurationService, ProductCatalogueCacheService, AuthenticationService],
   bootstrap: [AppComponent]
