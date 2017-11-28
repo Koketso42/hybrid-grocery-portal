@@ -1,4 +1,4 @@
 export class Discount {
-	discountId: number;
-    discountPercentage: number;
+	discountId?: number;
+    discountPercentage?: number;
 }

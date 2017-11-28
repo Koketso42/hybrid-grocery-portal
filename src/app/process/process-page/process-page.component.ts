@@ -66,8 +66,8 @@ export class ProcessPageComponent implements OnInit {
 	}
 
 	onNavigate(event) {
-    setTimeout(() => {
-      this.setupActiveWidget();
-    }, 200);
+		setTimeout(() => {
+		this.setupActiveWidget();
+		}, 200);
 	}
 }
