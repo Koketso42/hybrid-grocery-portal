@@ -1,3 +1,4 @@
+import { UserSession } from './../../../authentication/models/UserSession';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { WidgetComponent } from '../widget.component';
 import { AuthenticationService } from '../../../authentication/authentication.service';
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit, WidgetComponent {
 
 	loginStatus = false;
 	user: User = null;
+	userSession: UserSession = null;
 
 	username: string;
 	password: string;
@@ -59,7 +61,10 @@ export class LoginComponent implements OnInit, WidgetComponent {
 				if (result.status === '200') {
 					this.loginStatus = true;
 					this.user = result.data as User;
-					this.persistentStorageSvc.save('basket.userSession', this.user);
+					this.userSession = new UserSession();
+					this.userSession.authenticated = true;
+					this.userSession.user = this.user;
+					this.persistentStorageSvc.save('SESSION.userSession', this.userSession);
 
 					this.onNavigateToPage('shop');
 				} else if (result.status === '403') {

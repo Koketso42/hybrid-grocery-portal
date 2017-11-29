@@ -1,3 +1,4 @@
+import { UserSession } from './../../../authentication/models/UserSession';
 import { Discount } from './../../../product-catalogue-cache/models/Discount';
 import { Product } from './../../../product-catalogue-cache/models/Product';
 import { Catalogue } from '../../../product-catalogue-cache/models/Catalogue';
@@ -7,6 +8,8 @@ import { WidgetComponent } from '../widget.component';
 import { ProductCatalogueCacheService } from '../../../product-catalogue-cache/product-catalogue-cache.service';
 import { Router } from '@angular/router';
 import { PersistentStorageService } from '../../../config/persistent-storage.service';
+import { User } from '../../../authentication/models/User';
+import { Person } from '../../../product-catalogue-cache/models/Person';
 
 @Component({
 	selector: 'app-catalogue',
@@ -31,20 +34,31 @@ export class CatalogueComponent implements OnInit, WidgetComponent {
 	}
 
 	order(product: Product) {
-		this.productCatalogueSvc.discounts().subscribe((disountsList) => {
-			const order = new Order();
-			order.products = [];
-			order.products.push(product);
-			order.deliveryStatus = false;
-			order.totalPrice = this.applyDiscount(disountsList, this.determineTotalPrice(order.products));
+		const userSession: UserSession = this.persistentStorageSvc.get('SESSION.userSession') as UserSession;
 
-			this.productCatalogueSvc.placeOrder(order).subscribe((results) => {
-				console.log(results);
-				this.persistOrder(results as Order);
-				// navigate to checkout page
-				this.onNavigateToPage('checkout');
+		if (userSession.authenticated) {
+			this.productCatalogueSvc.discounts().subscribe((disountsList) => {
+				const order = new Order();
+				order.products = [];
+				order.products.push(product);
+				order.deliveryStatus = false;
+				order.totalPrice = this.applyDiscount(disountsList, this.determineTotalPrice(order.products));
+
+				if (userSession.authenticated) {
+					order.customer = userSession.user.person as Person;
+				}
+
+				this.productCatalogueSvc.placeOrder(order).subscribe((results) => {
+					console.log(results);
+					this.persistOrder(results as Order);
+					// navigate to checkout page
+					this.onNavigateToPage('checkout');
+				});
 			});
-		});
+		} else {
+			alert('Please login and checkout to proceed with your online shopping.');
+			this.onNavigateToPage('login');
+		}
 	}
 
 	determineTotalPrice(products: Product[]): number {

@@ -6,6 +6,8 @@ import { PersistentStorageService } from '../../../config/persistent-storage.ser
 import { Order } from '../../../product-catalogue-cache/models/Order';
 import { Person } from '../../../product-catalogue-cache/models/Person';
 import { Account } from '../../../product-catalogue-cache/models/Account';
+import { Router } from '@angular/router';
+import { UserSession } from '../../../authentication/models/UserSession';
 
 @Component({
 	selector: 'app-checkout-page',
@@ -22,7 +24,7 @@ export class CheckoutPageComponent implements OnInit, WidgetComponent {
 	order: Order;
 	addressForm: FormGroup;
 
-	constructor(private persistentStorageSvc: PersistentStorageService, fb: FormBuilder) {
+	constructor(private persistentStorageSvc: PersistentStorageService, fb: FormBuilder, private router: Router) {
 		this.addressForm = fb.group({
 			complexName: [ null, Validators.required ],
 			streetName: [ null, Validators.required ],
@@ -32,7 +34,13 @@ export class CheckoutPageComponent implements OnInit, WidgetComponent {
 			country: [ null, Validators.required ],
 			postalCode: [ null, Validators.required ]
 		});
-		this.order = persistentStorageSvc.get('basket.order') as Order || new Order();
+		this.order = (persistentStorageSvc.get('basket.order') as Order) || new Order();
+
+		const userSession: UserSession = this.persistentStorageSvc.get('SESSION.userSession') as UserSession;
+
+		if (!userSession.authenticated) {
+			this.onNavigateToPage('login');
+		}
 
 		if (this.order.customer == null) {
 			this.order.customer = new Person();
@@ -72,4 +80,9 @@ export class CheckoutPageComponent implements OnInit, WidgetComponent {
 	}
 
 	public finish(event) {}
+
+	public onNavigateToPage(page) {
+		this.router.navigate([ `page/${page}` ]);
+		this.onNavigate.emit({ page: `page/${page}` });
+	}
 }

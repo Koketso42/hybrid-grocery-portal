@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit, WidgetComponent {
 			const user = new User();
 			Object.assign(user, formData);
 
-			this.authenticationSvc.register(user)
+			this.authenticationSvc.register(this.user)
 				.subscribe(result => {
 					if (result.status === '200') {
 						this.registrationStatus = true;

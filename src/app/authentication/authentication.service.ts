@@ -31,7 +31,7 @@ export class AuthenticationService {
 		headers.append('Content-Type', 'application/json');
 
 		return this.http
-			.post(this.configSvc.baseUrl('register'), user, { headers: headers })
+			.post(this.configSvc.baseUrl('Register'), user, { headers: headers })
 			.map((response) => {
 				return response.json() as User;
 			})

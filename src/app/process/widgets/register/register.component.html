@@ -129,7 +129,7 @@
               <div class="form-group row" [ngClass]="{'has-danger':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}">
                 <label for="password" class="col-2 col-form-label">Password</label>
                 <div class="col-10">
-                  <input class="form-control" [formControl]="registerForm.controls['password']" [ngClass]="{'form-control-danger':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}" type="text" value="" id="password" [(ngModel)]="user.password">
+                  <input class="form-control" [formControl]="registerForm.controls['password']" [ngClass]="{'form-control-danger':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}" type="password" value="" id="password" [(ngModel)]="user.password">
                   <div *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched" class="form-control-feedback">* Please complete this field</div>
                   <div *ngIf="registerForm.controls['password'].hasError('pattern') && registerForm.controls['password'].touched" class="form-control-feedback">* Your password must at least have 8 characters, numbers (1, 2, 3, etc), special character (@, #, %, etc), sppercase letter (A, B, C, etc)</div>
                 </div>
