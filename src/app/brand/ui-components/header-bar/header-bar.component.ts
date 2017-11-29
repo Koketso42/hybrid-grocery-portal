@@ -28,7 +28,7 @@ export class HeaderBarComponent implements OnInit {
 	onNavigateToPage(page, logout?: boolean) {
 		this.userSession = this.persistentStorageSvc.get('SESSION.userSession') as UserSession;
 
-		if (page === 'shop' && (!logout || this.userSession.authenticated)) {
+		if (!logout || this.userSession.authenticated) {
 			this.userSession.authenticated = logout;
 			this.userSession.user = null;
 			this.persistentStorageSvc.save('SESSION.userSession', this.userSession);
