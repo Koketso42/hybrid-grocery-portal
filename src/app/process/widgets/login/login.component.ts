@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 import { User } from '../../../authentication/models/User';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PersistentStorageService } from '../../../config/persistent-storage.service';
 
 @Component({
 	selector: 'app-login',
@@ -11,7 +12,6 @@ import { Router } from '@angular/router';
 	styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit, WidgetComponent {
-
 	@Output() data: any;
 	@Input() onNavigate: EventEmitter<any>;
 
@@ -23,22 +23,31 @@ export class LoginComponent implements OnInit, WidgetComponent {
 
 	loginForm: FormGroup;
 
-	constructor(private authenticationSvc: AuthenticationService, fb: FormBuilder, private router: Router) {
-
+	constructor(
+		private authenticationSvc: AuthenticationService,
+		fb: FormBuilder,
+		private router: Router,
+		private persistentStorageSvc: PersistentStorageService
+	) {
 		this.loginForm = fb.group({
-			'username': [null, Validators.required],
-			'password': [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern(/[A-Z]/),
-				Validators.pattern(/[a-z]/),
-				Validators.pattern(/[0-9]/),
-				Validators.pattern(/[$@$!%*?&]/)
-			])]
+			username: [ null, Validators.required ],
+			password: [
+				null,
+				Validators.compose([
+					Validators.required,
+					Validators.minLength(8),
+					Validators.pattern(/[A-Z]/),
+					Validators.pattern(/[a-z]/),
+					Validators.pattern(/[0-9]/),
+					Validators.pattern(/[$@$!%*?&]/)
+				])
+			]
 		});
 	}
 
 	ngOnInit() {}
 
 	public login(formData) {
-
 		console.log(formData);
 
 		if (this.loginForm.valid) {
@@ -46,36 +55,35 @@ export class LoginComponent implements OnInit, WidgetComponent {
 			user.username = formData.username;
 			user.password = formData.password;
 
-			this.authenticationSvc.login(user)
-				.subscribe(result => {
-					if (result.status === '200') {
-						this.loginStatus = true;
-						this.user = result.data as User;
+			this.authenticationSvc.login(user).subscribe((result) => {
+				if (result.status === '200') {
+					this.loginStatus = true;
+					this.user = result.data as User;
+					this.persistentStorageSvc.save('basket.userSession', this.user);
 
-						this.onNavigateToPage('shop');
-					} else if (result.status === '403') {
-						this.loginStatus = false;
-						this.user = null;
+					this.onNavigateToPage('shop');
+				} else if (result.status === '403') {
+					this.loginStatus = false;
+					this.user = null;
 
-						alert('Error: ' + result.data.error);
-						this.username = '';
-						this.password = '';
-					}
-				});
+					alert('Error: ' + result.data.error);
+					this.username = '';
+					this.password = '';
+				}
+			});
 		} else {
 			this.onValidateForm();
 		}
 	}
 
 	public onValidateForm(): void {
-
-        Object.keys(this.loginForm.controls).map((controlName) => {
-            this.loginForm.get(controlName).markAsTouched({ onlySelf: true });
-        });
-    }
+		Object.keys(this.loginForm.controls).map((controlName) => {
+			this.loginForm.get(controlName).markAsTouched({ onlySelf: true });
+		});
+	}
 
 	public onNavigateToPage(page) {
-		this.router.navigate([`page/${page}`]);
+		this.router.navigate([ `page/${page}` ]);
 		this.onNavigate.emit({ page: `page/${page}` });
 	}
 }

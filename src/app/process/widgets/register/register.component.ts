@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit, WidgetComponent {
 					if (result.status === '200') {
 						this.registrationStatus = true;
 
+						alert('Application successful, you can now login');
 						this.onNavigateToPage('login');
 					} else if (result.status === '403') {
 						this.registrationStatus = false;
