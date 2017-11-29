@@ -13,6 +13,6 @@ describe('ConfigurationService', () => {
   }));
 
   it('should get base product catalogue url', inject([ConfigurationService], (service: ConfigurationService) => {
-    expect(service.baseUrl('ProductCatalogue')).toEqual('localhost:3000/api/catalogue');
+    expect(service.baseUrl('ProductCatalogue')).toEqual('http://localhost:3000/api/catalogue/');
   }));
 });
