@@ -1,3 +1,4 @@
+import { PersistentStorageService } from './config/persistent-storage.service';
 import { AuthenticationService } from './authentication/authentication.service';
 import { ConfigurationService } from './config/configuration.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,7 +23,7 @@ import { HttpModule } from '@angular/http';
     BrandModule,
     HttpModule
   ],
-  providers: [ConfigurationService, ProductCatalogueCacheService, AuthenticationService],
+  providers: [ConfigurationService, ProductCatalogueCacheService, AuthenticationService, PersistentStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

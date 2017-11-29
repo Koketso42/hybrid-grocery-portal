@@ -1,3 +1,131 @@
-<p>
-  checkout-page works!
-</p>
+<div class="container">
+  <h3>Checkout</h3>
+  <div class="ui ordered steps">
+    <div class="step" [ngClass]="{'active':visiblePanel === 'address', 'completed':visiblePanel !== 'address' && counter > 0}">
+      <div class="content">
+        <div class="title">Delivery</div>
+      </div>
+    </div>
+    <div class="step" [ngClass]="{'active':visiblePanel === 'confirm', 'completed':visiblePanel !== 'confirm' && counter > 1}">
+      <div class="content">
+        <div class="title">Confirm Order</div>
+      </div>
+    </div>
+    <div class="step" [ngClass]="{'active':visiblePanel === 'payment', 'completed':visiblePanel !== 'payment' && counter > 2}">
+      <div class="content">
+        <div class="title">Payment</div>
+      </div>
+    </div>
+    <div class="step" [ngClass]="{'active':visiblePanel === 'finish', 'completed':visiblePanel !== 'finish' && counter > 3}">
+      <div class="content">
+        <div class="title">Finish</div>
+      </div>
+    </div>
+  </div>
+  <div class="ui segment" *ngIf="visiblePanel === 'address'">
+      <form [formGroup]="addressForm" (ngSubmit)="confirmAddress(addressForm.value)" novalidates>
+          <h5>Address Details</h5>
+          <hr>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['complexName'].valid && addressForm.controls['complexName'].touched}">
+            <label for="complexName" class="col-2 col-form-label">Complex name</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['complexName']" [ngClass]="{'form-control-danger':!addressForm.controls['complexName'].valid && addressForm.controls['complexName'].touched}" type="text" value="" id="complexName" [(ngModel)]="order.customer.address.complexName">
+              <div *ngIf="addressForm.controls['complexName'].hasError('required') && addressForm.controls['complexName'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['streetName'].valid && addressForm.controls['streetName'].touched}">
+            <label for="streetName" class="col-2 col-form-label">Street name</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['streetName']" [ngClass]="{'form-control-danger':!addressForm.controls['streetName'].valid && addressForm.controls['streetName'].touched}" type="text" value="" id="streetName" [(ngModel)]="order.customer.address.streetName">
+              <div *ngIf="addressForm.controls['streetName'].hasError('required') && addressForm.controls['streetName'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['suburb'].valid && addressForm.controls['suburb'].touched}">
+            <label for="suburb" class="col-2 col-form-label">Surbub</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['suburb']" [ngClass]="{'form-control-danger':!addressForm.controls['suburb'].valid && addressForm.controls['suburb'].touched}" type="text" value="" id="suburb" [(ngModel)]="order.customer.address.suburb">
+              <div *ngIf="addressForm.controls['suburb'].hasError('required') && addressForm.controls['suburb'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['city'].valid && addressForm.controls['city'].touched}">
+            <label for="city" class="col-2 col-form-label">City</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['city']" [ngClass]="{'form-control-danger':!addressForm.controls['city'].valid && addressForm.controls['city'].touched}" type="text" value="" id="city" [(ngModel)]="order.customer.address.city">
+              <div *ngIf="addressForm.controls['city'].hasError('required') && addressForm.controls['city'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['state'].valid && addressForm.controls['state'].touched}">
+            <label for="state" class="col-2 col-form-label">State</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['state']" [ngClass]="{'form-control-danger':!addressForm.controls['state'].valid && addressForm.controls['state'].touched}" type="text" value="" id="state" [(ngModel)]="order.customer.address.state">
+              <div *ngIf="addressForm.controls['state'].hasError('required') && addressForm.controls['state'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['country'].valid && addressForm.controls['country'].touched}">
+            <label for="country" class="col-2 col-form-label">Country</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['country']" [ngClass]="{'form-control-danger':!addressForm.controls['country'].valid && addressForm.controls['country'].touched}" type="text" value="" id="country" [(ngModel)]="order.customer.address.country">
+              <div *ngIf="addressForm.controls['country'].hasError('required') && addressForm.controls['country'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger':!addressForm.controls['postalCode'].valid && addressForm.controls['postalCode'].touched}">
+            <label for="postalCode" class="col-2 col-form-label">Postal code</label>
+            <div class="col-10">
+              <input class="form-control" [formControl]="addressForm.controls['postalCode']" [ngClass]="{'form-control-danger':!addressForm.controls['state'].valid && addressForm.controls['postalCode'].touched}" type="text" value="" id="postalCode" [(ngModel)]="order.customer.address.postalCode">
+              <div *ngIf="addressForm.controls['postalCode'].hasError('required') && addressForm.controls['postalCode'].touched" class="form-control-feedback">* Please complete this field</div>
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+              <button class="btn btn-primary" (click)="confirmAddress(addressForm.value)">Proceed</button>
+          </div>
+      </form>
+  </div>
+  <div class="ui segment" *ngIf="visiblePanel === 'confirm'">
+      <h5>Confirm Order</h5>
+      <hr>
+      <div class="row">
+          <div *ngFor="let product of order.products; let i = index" class="col-lg-6">
+              <section class="ui segment border border-secondary border-left-3 pl4">
+                  <section class="border border-dark border-bottom-3">
+                      <h3>{{ product.productName }}</h3>
+                      <div class="row mt1">
+                          <div class="col">
+                              <p>quantity</p>
+                              <h6>R {{ product.quantity }}</h6>
+                          </div>
+                          <div class="col">
+                              <p>Price</p>
+                              <h6>R {{ product.price | number:'1.2-2' }}</h6>
+                          </div>
+                      </div>
+                  </section>
+              </section>
+          </div>
+      </div>
+      <hr />
+      <form>
+          <div class="form-group">
+              <button class="btn btn-primary" (click)="confirmOrder($event)">Proceed</button>
+          </div>
+      </form>
+  </div>
+  <div class="ui segment" *ngIf="visiblePanel === 'payment'">
+      <h5>Payment</h5>
+      <hr />
+      <form>
+          <div class="form-group">
+              <button class="btn btn-primary" (click)="confirmPayment($event)">Proceed</button>
+          </div>
+      </form>
+  </div>
+  <div class="ui segment" *ngIf="visiblePanel === 'finish'">
+      <h5>Finish</h5>
+      <hr />
+      <form>
+          <div class="form-group">
+              <button class="btn btn-primary" (click)="finish($event)">Finish</button>
+          </div>
+      </form>
+  </div>
+</div>
